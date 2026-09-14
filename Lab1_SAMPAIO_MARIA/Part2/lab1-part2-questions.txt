@@ -15,6 +15,12 @@ Sendo esse valor próximo ao atraso medido de 7,558ms. Na topologia modificada, 
 E esse valor também é próximo do atraso medido de 14,929ms. Portanto, a diferença ocorre porque o atraso total inclui tanto o atraso de propagação quanto o tempo de transmissão do pacote.
 
 
-2. O primeiro request-response apresentou um atraso maior que os demais. A análise dos arquivos PCAP mostrou que esse atraso adicional ocorre na rede CSMA durante a resolução ARP. Antes da primeira transmissão, os nós precisam descobrir o endereço MAC correspondente ao endereço IP do próximo salto, realizando uma troca de mensagens ARP Request e ARP Reply.
+2. O primeiro par request-response apresentou um atraso significativamente maior do que os demais. A análise dos arquivos PCAP mostrou que esse atraso adicional ocorre durante as primeiras resoluções ARP na rede CSMA.
 
-Após essa primeira resolução, o mapeamento IP-MAC fica armazenado na cache ARP, e por isso, os pacotes seguintes não precisam repetir esse processo e apresentam atrasos menores e praticamente constantes. Na topologia original, o primeiro pacote teve atraso de aproximadamente 24,607ms, enquanto os seguintes ficaram em aproximadamente 7,558ms. Na topologia modificada, o primeiro obteve aproximadamente 31,980ms, enquanto os seguintes ficaram em aproximadamente 14,929ms.
+Antes de transmitir um pacote pela rede local, o nó precisa descobrir qual endereço MAC corresponde ao endereço IP do próximo salto. Como essa informação ainda não está armazenada na cache ARP durante a primeira comunicação, é necessário realizar a troca de mensagens ARP Request e ARP Reply.
+
+Após análise dos PCAPs, observa-se que, na ida, ocorre uma espera de aproximadamente 8 ms associada à primeira resolução ARP e, na volta, uma nova espera de aproximadamente 9 ms associada à resolução ARP no sentido contrário. Essas esperas explicam o atraso adicional de cerca de 17 ms observado no primeiro request-response.
+
+Na topologia original, o primeiro pacote apresentou atraso de aproximadamente 24,607ms, enquanto os pacotes seguintes ficaram em torno de 7,558ms. Na topologia modificada, o primeiro apresentou aproximadamente 31,980ms, enquanto os seguintes ficaram em torno de 14,929ms.
+
+Após essas primeiras resoluções, os mapeamentos entre endereços IP e MAC ficam armazenados na cache ARP. Assim, os pacotes seguintes não precisam repetir esse processo, fazendo com que seus atrasos sejam menores e permaneçam praticamente constantes.
