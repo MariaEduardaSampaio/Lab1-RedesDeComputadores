@@ -1,0 +1,3 @@
+Na Parte 2, após o primeiro pacote os atrasos permaneceram praticamente constantes. Já na topologia com Wi-Fi, os pacotes 2 a 10 apresentaram pequenas variações no atraso, ficando aproximadamente entre 7,77ms e 7,96ms.
+
+Essa diferença ocorre porque, no Wi-Fi, a transmissão não possui uma taxa fixa configurada diretamente como nos enlaces point-to-point e CSMA. O acesso ao meio sem fio envolve mecanismos da camada MAC, como contenção pelo canal, backoff e possíveis retransmissões, além da possibilidade de variação da taxa de transmissão. Por isso, mesmo com pacotes do mesmo tamanho e percorrendo a mesma topologia, o atraso varia ligeiramente entre uma transmissão e outra.

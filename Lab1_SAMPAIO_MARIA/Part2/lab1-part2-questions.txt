@@ -1,0 +1,20 @@
+1. Após o primeiro pacote, os atrasos medidos foram de aproximadamente 7,558ms na topologia original e de 14,929ms na topologia modificada. Esses valores são maiores que os 4ms e 8ms esperados, porque esses valores consideram apenas o atraso de propagação dos enlaces point-to-point.
+
+Também é necessário considerar o tempo de transmissão do pacote. Como os pacotes possuem 1054 bytes e os enlaces point-to-point possuem taxa de 5 Mbps:
+
+t_tx = (1054 × 8) / (5 × 10^6) = 1,686ms
+
+Na topologia original, há duas travessias point-to-point, uma na ida e uma na volta:
+
+2 × (2 + 1,686) = 7,373ms
+
+Sendo esse valor próximo ao atraso medido de 7,558ms. Na topologia modificada, há quatro travessias point-to-point, duas na ida e duas na volta:
+
+4 × (2 + 1,686) = 14,746ms
+
+E esse valor também é próximo do atraso medido de 14,929ms. Portanto, a diferença ocorre porque o atraso total inclui tanto o atraso de propagação quanto o tempo de transmissão do pacote.
+
+
+2. O primeiro request-response apresentou um atraso maior que os demais. A análise dos arquivos PCAP mostrou que esse atraso adicional ocorre na rede CSMA durante a resolução ARP. Antes da primeira transmissão, os nós precisam descobrir o endereço MAC correspondente ao endereço IP do próximo salto, realizando uma troca de mensagens ARP Request e ARP Reply.
+
+Após essa primeira resolução, o mapeamento IP-MAC fica armazenado na cache ARP, e por isso, os pacotes seguintes não precisam repetir esse processo e apresentam atrasos menores e praticamente constantes. Na topologia original, o primeiro pacote teve atraso de aproximadamente 24,607ms, enquanto os seguintes ficaram em aproximadamente 7,558ms. Na topologia modificada, o primeiro obteve aproximadamente 31,980ms, enquanto os seguintes ficaram em aproximadamente 14,929ms.
