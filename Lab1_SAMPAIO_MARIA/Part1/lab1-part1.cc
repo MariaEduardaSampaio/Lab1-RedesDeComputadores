@@ -9,18 +9,6 @@ using namespace ns3;
 
 NS_LOG_COMPONENT_DEFINE ("FirstScriptExample");
 
-bool ValidateSizeOfClientsAndPackets(uint32_t nClients, uint32_t nPackets){
-  if(nClients < 1 || nClients > 5){
-    std::cout << "Error: Number of clients must be between 1 and 5." << std::endl;
-    return false;
-  }
-  if(nPackets < 1 || nPackets > 5){
-    std::cout << "Error: Number of packets must be between 1 and 5." << std::endl;
-    return false;
-  }
-  return true;
-}
-
 int
 main (int argc, char *argv[])
 {
